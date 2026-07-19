@@ -6,8 +6,8 @@ from datetime import datetime
 load_dotenv()
 
 POLLINATIONS_KEY = os.getenv("POLLINATIONS_API_KEY", "sk_K98O2j1UlpALX9TBAoAuEdqxL1hpB7zh")
-IMAGE_WIDTH = 3840
-IMAGE_HEIGHT = 2160
+IMAGE_WIDTH = 1920
+IMAGE_HEIGHT = 1080
 
 SCREENSAVERS = [
     ("Spirited Meadow", "Studio Ghibli style magical meadow with glowing fireflies, rolling green hills, whimsical flowers, soft warm sunset light, anime painting style, vibrant colors, dreamy atmosphere, highly detailed, no text"),
@@ -26,7 +26,7 @@ def generate_via_pollinations(prompt: str, output_path: str) -> bool:
     try:
         print(f"[image] Pollinations API call...", flush=True)
         full_prompt = f"4K screensaver wallpaper. {prompt} 16:9 landscape, highly detailed, smooth gradients, no text, no watermark, no logo, professional ambient screensaver, peaceful and relaxing composition."
-        url = f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}?model=gptimage-large&width=1792&height=1008&key={POLLINATIONS_KEY}"
+        url = f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}?model=gptimage-large&width=1920&height=1080&key={POLLINATIONS_KEY}"
         resp = requests.get(url, timeout=180)
         print(f"[image] Response: {resp.status_code}, {len(resp.content)} bytes", flush=True)
         if resp.status_code == 200 and len(resp.content) > 1000:
@@ -44,6 +44,11 @@ def generate_via_pollinations(prompt: str, output_path: str) -> bool:
             left = (new_w - IMAGE_WIDTH) // 2
             top = (new_h - IMAGE_HEIGHT) // 2
             img = img.crop((left, top, left + IMAGE_WIDTH, top + IMAGE_HEIGHT))
+            from PIL import ImageFilter, ImageEnhance
+            img = img.filter(ImageFilter.MedianFilter(size=3))
+            img = img.filter(ImageFilter.UnsharpMask(radius=1.5, percent=80, threshold=2))
+            img = ImageEnhance.Contrast(img).enhance(1.1)
+            img = ImageEnhance.Color(img).enhance(1.05)
             Path(output_path).parent.mkdir(parents=True, exist_ok=True)
             img.save(output_path, format="JPEG", quality=95)
             print(f"[image] Saved: {os.path.getsize(output_path)} bytes", flush=True)

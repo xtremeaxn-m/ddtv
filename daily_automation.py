@@ -62,7 +62,7 @@ def main():
             print(f"{'='*70}")
             print(f"  File size: {size_mb:.2f} MB ({size_mb/1024:.2f} GB)")
             print(f"  Duration: 1 hour")
-            print(f"  Resolution: 4K (3840x2160)")
+            print(f"  Resolution: HD (1920x1080)")
             print(f"  Format: 16:9")
             for speed in [10, 25, 50, 100]:
                 est = estimate_upload_time(size_mb/1024, speed)

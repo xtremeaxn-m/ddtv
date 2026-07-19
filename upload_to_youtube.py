@@ -73,7 +73,7 @@ def generate_thumbnail(image_path: str, output_path: str, screensaver_name: str)
     draw = ImageDraw.Draw(img)
 
     draw.text((960, 280), screensaver_name, fill=(255, 255, 255), font=f_brand, anchor="mm")
-    draw.text((960, 380), "4K SCREENSAVER", fill=(255, 255, 255), font=f_name, anchor="mm")
+    draw.text((960, 380), "HD SCREENSAVER", fill=(255, 255, 255), font=f_name, anchor="mm")
     draw.text((960, 440), "1 HOUR RELAXATION", fill=(200, 200, 200), font=f_sub, anchor="mm")
 
     bar_y = 920
@@ -90,29 +90,29 @@ def generate_thumbnail(image_path: str, output_path: str, screensaver_name: str)
 
 def generate_title_description(screensaver_name: str):
     titles = [
-        f"{screensaver_name} | 4K Screensaver - 1 Hour of Relaxing Visuals",
-        f"1 Hour 4K Screensaver: {screensaver_name} - Relax Your Mind",
-        f"{screensaver_name} - Beautiful 4K Screensaver for TV (1 Hour No Audio)",
-        f"4K Screensaver TV - {screensaver_name} | 1 Hour Relaxing Ambience",
-        f"ð {screensaver_name} - 4K Screensaver | 1 Hour No Audio | Relax & Unwind",
+        f"{screensaver_name} | HD Screensaver - 1 Hour of Relaxing Visuals",
+        f"1 Hour HD Screensaver: {screensaver_name} - Relax Your Mind",
+        f"{screensaver_name} - Beautiful HD Screensaver for TV (1 Hour No Audio)",
+        f"HD Screensaver TV - {screensaver_name} | 1 Hour Relaxing Ambience",
+        f"ð {screensaver_name} - HD Screensaver | 1 Hour No Audio | Relax & Unwind",
     ]
 
     today = datetime.now().strftime("%B %d, %Y")
-    description = f"ðº {screensaver_name} - 4K Screensaver\n\n"
-    description += f"Enjoy 1 hour of beautiful {screensaver_name.lower()} screensaver in stunning 4K resolution.\n"
+    description = f"ðº {screensaver_name} - HD Screensaver\n\n"
+    description += f"Enjoy 1 hour of beautiful {screensaver_name.lower()} screensaver in stunning HD resolution.\n"
     description += f"Perfect for relaxing, studying, working, or as a beautiful background for your TV.\n\n"
     description += f"â¨ FEATURES:\n"
-    description += f"â¢ 4K Ultra HD Resolution (3840 x 2160)\n"
+    description += f"â¢ Full HD Resolution (1920 x 1080)\n"
     description += f"â¢ 1 Hour Long - No Loop\n"
     description += f"â¢ No Audio - Pure Visuals\n"
     description += f"â¢ Perfect for Ambience & Relaxation\n"
     description += f"â¢ Great for TV Screensavers, Digital Art Displays\n\n"
     description += f"Uploaded: {today}\n\n"
-    description += f"ð SUBSCRIBE for daily 4K screensavers!\n"
+    description += f"ð SUBSCRIBE for daily HD screensavers!\n"
     description += f"ð Like if you enjoy the visuals!\n"
     description += f"ð¬ Comment which screensaver theme you want next!\n\n"
-    description += f"#4KScreensaver #Screensaver #Relaxation #{screensaver_name.replace(' ', '')} "
-    description += f"#4K #UltraHD #Ambience #TVScreensaver #Relaxing #KreggsartTV #1Hour\n\n"
+    description += f"#HDScreensaver #Screensaver #Relaxation #{screensaver_name.replace(' ', '')} "
+    description += f"#HD #1080p #Ambience #TVScreensaver #Relaxing #KreggsartTV #1Hour\n\n"
     description += f"© {datetime.now().year} {CHANNEL_NAME} - All rights reserved."
 
     return titles, titles[0], description
@@ -138,10 +138,10 @@ def upload_to_youtube():
 
         titles, selected_title, description = generate_title_description(screensaver_name)
         if len(description) > 4900:
-            description = description[:4900] + f"\n\n#4KScreensaver #KreggsartTV"
+            description = description[:4900] + f"\n\n#HDScreensaver #KreggsartTV"
 
         tags = [
-            "4K Screensaver", "Screensaver", "4K", "UltraHD", "Relaxation",
+            "HD Screensaver", "Screensaver", "HD", "1080p", "Relaxation",
             screensaver_name, "TV Screensaver", "Relaxing", "No Audio",
             "Kreggsart TV", "KreggsartTV", "1 Hour", screensaver_name.replace(" ", ""),
         ]
