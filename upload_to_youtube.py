@@ -121,6 +121,40 @@ def generate_title_description(screensaver_name: str):
     return titles, titles[0], description
 
 
+def update_channel_info(youtube):
+    channel_desc = (
+        "Welcome to Relaxing Screensavers HD - your daily escape into peaceful nature.\n\n"
+        "Every day we upload 1 hour of stunning HD screensavers to help you relax, "
+        "meditate, study, work, or sleep. No music, no talking - just pure calming visuals.\n\n"
+        "Perfect for:\n"
+        "- TV screensavers & digital displays\n"
+        "- Meditation & mindfulness\n"
+        "- Studying & working background\n"
+        "- Sleep aid & relaxation\n"
+        "- Home decor ambience\n\n"
+        "Subscribe for a new relaxing screensaver every day at 10 AM EST!"
+    )
+    try:
+        channels = youtube.channels().list(part="brandingSettings", mine=True).execute()
+        if channels.get("items"):
+            cid = channels["items"][0]["id"]
+            youtube.channels().update(
+                part="brandingSettings",
+                body={
+                    "id": cid,
+                    "brandingSettings": {
+                        "channel": {
+                            "description": channel_desc,
+                            "keywords": "screensaver relaxing screensaver HD screensaver nature screensaver TV screensaver background video ambience relaxation calm peaceful meditation",
+                        }
+                    }
+                }
+            ).execute()
+            print(f"[youtube] Channel description updated", flush=True)
+    except Exception as e:
+        print(f"[youtube] Channel update skipped: {e}", flush=True)
+
+
 def upload_to_youtube():
     try:
         meta_path = Path("output") / "latest_video.json"
@@ -157,6 +191,8 @@ def upload_to_youtube():
         print(f"[youtube] Duration: 1 hour")
 
         youtube = get_authenticated_service()
+
+        update_channel_info(youtube)
 
         body = {
             "snippet": {
