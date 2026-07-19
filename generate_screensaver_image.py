@@ -26,13 +26,24 @@ def generate_via_pollinations(prompt: str, output_path: str) -> bool:
     try:
         print(f"[image] Pollinations API call...", flush=True)
         full_prompt = f"4K screensaver wallpaper. {prompt} 16:9 landscape, highly detailed, smooth gradients, no text, no watermark, no logo, professional ambient screensaver, peaceful and relaxing composition."
-        url = f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}?model=gptimage-large&width=1792&height=1024&key={POLLINATIONS_KEY}"
+        url = f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}?model=gptimage-large&width=1792&height=1008&key={POLLINATIONS_KEY}"
         resp = requests.get(url, timeout=180)
         print(f"[image] Response: {resp.status_code}, {len(resp.content)} bytes", flush=True)
         if resp.status_code == 200 and len(resp.content) > 1000:
             from PIL import Image
             img = Image.open(io.BytesIO(resp.content)).convert("RGB")
-            img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT), Image.LANCZOS)
+            img_ratio = img.width / img.height
+            target_ratio = IMAGE_WIDTH / IMAGE_HEIGHT
+            if img_ratio > target_ratio:
+                new_h = IMAGE_HEIGHT
+                new_w = int(new_h * img_ratio)
+            else:
+                new_w = IMAGE_WIDTH
+                new_h = int(new_w / img_ratio)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            left = (new_w - IMAGE_WIDTH) // 2
+            top = (new_h - IMAGE_HEIGHT) // 2
+            img = img.crop((left, top, left + IMAGE_WIDTH, top + IMAGE_HEIGHT))
             Path(output_path).parent.mkdir(parents=True, exist_ok=True)
             img.save(output_path, format="JPEG", quality=95)
             print(f"[image] Saved: {os.path.getsize(output_path)} bytes", flush=True)
