@@ -73,7 +73,7 @@ def generate_thumbnail(image_path: str, output_path: str, screensaver_name: str)
     draw = ImageDraw.Draw(img)
 
     draw.text((960, 280), screensaver_name, fill=(255, 255, 255), font=f_brand, anchor="mm")
-    draw.text((960, 380), "HD SCREENSAVER", fill=(255, 255, 255), font=f_name, anchor="mm")
+    draw.text((960, 380), "4K SCREENSAVER", fill=(255, 255, 255), font=f_name, anchor="mm")
     draw.text((960, 440), "1 HOUR RELAXATION", fill=(200, 200, 200), font=f_sub, anchor="mm")
 
     bar_y = 920
@@ -91,21 +91,21 @@ def generate_thumbnail(image_path: str, output_path: str, screensaver_name: str)
 def generate_title_description(screensaver_name: str):
     slug = screensaver_name.lower().replace(" ", "-")
     titles = [
-        f"1 Hour {screensaver_name} Screensaver - HD Relaxing Nature Ambience for TV",
-        f"{screensaver_name} | 1 Hour HD Screensaver - Relaxing Nature Video No Music",
-        f"ð¿ {screensaver_name} - 1 Hour Screensaver HD | Relaxing TV Background",
-        f"1 Hour of {screensaver_name} - HD Screensaver for Relaxation & Ambience",
-        f"{screensaver_name} Screensaver TV - 1 Hour HD Relaxing Visuals No Audio",
+        f"1 Hour {screensaver_name} Screensaver - 4K Relaxing Nature Ambience for TV",
+        f"{screensaver_name} | 1 Hour 4K Screensaver - Relaxing Nature Video No Music",
+        f"ð¿ {screensaver_name} - 1 Hour 4K Screensaver | Relaxing TV Background",
+        f"1 Hour of {screensaver_name} - 4K Screensaver for Relaxation & Ambience",
+        f"{screensaver_name} 4K Screensaver TV - 1 Hour Relaxing Visuals No Audio",
     ]
 
     today = datetime.now().strftime("%B %d, %Y")
-    description = f"ð¿ {screensaver_name} - 1 Hour HD Screensaver | Relaxing Nature Ambience\n\n"
-    description += f"Immerse yourself in 1 hour of stunning {screensaver_name.lower()} in beautiful HD quality. "
+    description = f"ð¿ {screensaver_name} - 1 Hour 4K Screensaver | Relaxing Nature Ambience\n\n"
+    description += f"Immerse yourself in 1 hour of stunning {screensaver_name.lower()} in beautiful 4K Ultra HD quality. "
     description += f"This relaxing screensaver is perfect for unwinding, meditation, studying, working, "
     description += f"or as a peaceful background for your TV or monitor.\n\n"
     description += f"No music, no talking - just pure calming visuals to help you relax and focus.\n\n"
     description += f"â¨ WHAT YOU'LL GET:\n"
-    description += f"â¤ Full HD 1080p Resolution (1920x1080)\n"
+    description += f"â¤ 4K Ultra HD Resolution (3840x2160)\n"
     description += f"â¤ 1 Hour Continuous Playback\n"
     description += f"â¤ No Audio - Pure Visuals Only\n"
     description += f"â¤ Perfect for Sleep, Meditation, Study, Work\n"
@@ -115,7 +115,7 @@ def generate_title_description(screensaver_name: str):
     description += f"ð Like if this helps you relax\n"
     description += f"ð¬ Comment your favorite nature scene\n\n"
     description += f"#Screensaver #Relaxing #Nature #{slug} "
-    description += f"#HDScreensaver #Ambience #Relaxation #Calm #Peaceful #TvBackground #1Hour #NoAudio\n\n"
+    description += f"#4K #Screensaver #4KScreensaver #Ambience #Relaxation #Calm #Peaceful #Nature #UltraHD\n\n"
     description += f"© {datetime.now().year} {CHANNEL_NAME}"
 
     return titles, titles[0], description
@@ -124,11 +124,11 @@ def generate_title_description(screensaver_name: str):
 def update_channel_info(youtube):
     channel_desc = (
         "Welcome to DreamDrifter TV - your daily escape into peaceful, dreamy visuals.\n\n"
-        "Every day we upload 1 hour of stunning HD ambient visuals and relaxing screensavers "
+        "Every day we upload 1 hour of stunning 4K ambient visuals and relaxing screensavers "
         "to help you unwind, meditate, study, work, or sleep. No music, no talking - "
         "just pure calming nature scenery and beautiful landscapes.\n\n"
         "🔹 WHAT WE OFFER:\n"
-        "- 1 Hour HD Ambient Visuals\n"
+        "- 1 Hour 4K Ambient Visuals\n"
         "- Relaxing Screensavers for TV\n"
         "- Nature & Scenic Landscapes\n"
         "- No Music - No Audio - Pure Calm\n"
@@ -186,12 +186,12 @@ def upload_to_youtube():
             description = description[:4900] + f"\n\n#Screensaver #Relaxing"
 
         tags = [
-            "screensaver", "relaxing screensaver", "HD screensaver", "nature screensaver",
+            "screensaver", "relaxing screensaver", "4K screensaver", "4K", "nature screensaver",
             "TV screensaver", "background video", "relaxing video", "ambience",
             "1 hour screensaver", "screensaver no music", "calm screensaver",
             "peaceful screensaver", screensaver_name, f"{screensaver_name} screensaver",
             "screensaver for TV", "relaxation", "meditation background",
-            "no audio screensaver", "1080p screensaver",
+            "no audio screensaver", "ultra hd", "2160p",
         ]
 
         print(f"[youtube] Title: {selected_title[:80]}...")

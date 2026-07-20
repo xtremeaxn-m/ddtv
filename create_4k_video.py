@@ -2,8 +2,8 @@ import subprocess, json, sys, os, shutil
 from pathlib import Path
 from datetime import datetime
 
-VIDEO_WIDTH = 1920
-VIDEO_HEIGHT = 1080
+VIDEO_WIDTH = 3840
+VIDEO_HEIGHT = 2160
 FPS = 30
 TARGET_DURATION_SECONDS = 3600
 SEGMENT_DURATION = 60

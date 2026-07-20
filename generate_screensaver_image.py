@@ -6,8 +6,8 @@ from datetime import datetime
 load_dotenv()
 
 POLLINATIONS_KEY = os.getenv("POLLINATIONS_API_KEY", "sk_K98O2j1UlpALX9TBAoAuEdqxL1hpB7zh")
-IMAGE_WIDTH = 1920
-IMAGE_HEIGHT = 1080
+IMAGE_WIDTH = 3840
+IMAGE_HEIGHT = 2160
 
 TIMES_OF_DAY = ["sunrise", "golden hour", "midday", "sunset", "dusk", "twilight", "night", "dawn"]
 SEASONS = ["spring", "summer", "autumn", "winter"]
@@ -65,7 +65,7 @@ def generate_via_pollinations(style_prompt: str, output_path: str, category: str
         uid = datetime.now().strftime("%H%M%S")
 
         full_prompt = (
-            f"Masterpiece screensaver wallpaper, {category} theme. {style_prompt}, "
+            f"Masterpiece 4K screensaver wallpaper, {category} theme. {style_prompt}, "
             f"{time}, {season}, {weather}, {color} tones, {mood} atmosphere, "
             f"16:9 landscape, highly detailed, smooth gradients, vibrant colors, "
             f"no text, no watermark, no logo, professional quality, cinematic. [{uid}]"
@@ -73,7 +73,7 @@ def generate_via_pollinations(style_prompt: str, output_path: str, category: str
 
         url = (
             f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}"
-            f"?model=gptimage-large&width=1920&height=1080"
+            f"?model=gptimage-large&width=3840&height=2160"
             f"&seed={seed}&key={POLLINATIONS_KEY}"
         )
 
