@@ -9,28 +9,60 @@ POLLINATIONS_KEY = os.getenv("POLLINATIONS_API_KEY", "sk_K98O2j1UlpALX9TBAoAuEdq
 IMAGE_WIDTH = 1920
 IMAGE_HEIGHT = 1080
 
+TIMES_OF_DAY = ["sunrise", "golden hour", "midday", "sunset", "dusk", "twilight", "night", "dawn"]
+SEASONS = ["spring", "summer", "autumn", "winter"]
+WEATHERS = ["clear sky", "soft clouds", "misty", "gentle rain", "sunbeams", "foggy", "dramatic clouds", "light breeze"]
+COLORS = ["warm golden", "cool blue", "soft pink", "vibrant green", "purple haze", "pastel", "deep amber", "silver gray"]
+MOODS = ["peaceful", "serene", "dreamy", "calm", "tranquil", "gentle", "soothing", "ethereal"]
+
 SCREENSAVERS = [
-    ("Spirited Meadow", "Studio Ghibli style magical meadow with glowing fireflies, rolling green hills, whimsical flowers, soft warm sunset light, anime painting style, vibrant colors, dreamy atmosphere, highly detailed, no text"),
-    ("Forest Spirit's Home", "Studio Ghibli style enchanted forest with giant ancient trees, soft sunbeams filtering through canopy, tiny forest spirits glowing, mossy ground, magical atmosphere, anime painting, cinematic 4K quality"),
-    ("Howl's Floating Garden", "Studio Ghibli style floating garden in the sky, colorful flowers cascading down, soft clouds all around, warm golden hour light, whimsical and dreamy, anime watercolor style, highly detailed"),
-    ("Secret Beach Cove", "Studio Ghibli style secret beach cove with crystal clear turquoise water, white sand, tropical flowers, gentle waves, warm golden sunset light, anime painting, peaceful serene atmosphere, ultra detailed"),
-    ("Mountain Village Sunrise", "Studio Ghibli style mountain village at sunrise, cozy houses on hillside, misty valleys, warm orange sky, cherry blossom trees, lush green terraced fields, anime landscape painting"),
-    ("Whispering Bamboo Grove", "Studio Ghibli style bamboo forest with soft green light filtering through, gentle breeze, tiny glowing spirits among bamboo stalks, mossy stone path, magical serene atmosphere, anime art style"),
-    ("Ocean of Stars", "Studio Ghibli style night sky reflecting on calm ocean, bioluminescent plankton glowing in waves, starry sky with milky way, soft moonlight, dreamy magical atmosphere, anime painting, ultra detailed"),
-    ("Kiki's Coastal Path", "Studio Ghibli style scenic coastal path with wildflowers, overlooking turquoise ocean, gentle breeze, fluffy white clouds, warm sunlight, green hills meeting the sea, anime watercolor landscape"),
-    ("Totoro's Rainy Forest", "Studio Ghibli style lush green forest in soft rain, giant camphor tree, raindrops on leaves, misty atmosphere, deep greens, magical woodland feel, anime painting, cinematic, highly detailed"),
-    ("Lavender Hills at Dusk", "Studio Ghibli style endless lavender fields on rolling hills at dusk, purple and orange sky, soft warm glow, gentle breeze, butterflies, dreamy romantic atmosphere, anime landscape art"),
+    ("Spirited Meadow", "Studio Ghibli style magical meadow, rolling green hills, whimsical flowers"),
+    ("Forest Spirit's Home", "Studio Ghibli style enchanted forest, giant ancient trees, tiny glowing spirits, mossy ground"),
+    ("Howl's Floating Garden", "Studio Ghibli style floating garden in the sky, colorful flowers cascading, soft clouds"),
+    ("Secret Beach Cove", "Studio Ghibli style secret beach cove, crystal clear turquoise water, white sand, tropical flowers"),
+    ("Mountain Village Sunrise", "Studio Ghibli style mountain village, cozy houses on hillside, misty valleys, cherry blossom trees"),
+    ("Whispering Bamboo Grove", "Studio Ghibli style bamboo forest, soft green light, tiny glowing spirits, mossy stone path"),
+    ("Ocean of Stars", "Studio Ghibli style night sky reflecting on calm ocean, bioluminescent plankton, starry sky"),
+    ("Kiki's Coastal Path", "Studio Ghibli style scenic coastal path with wildflowers, overlooking turquoise ocean"),
+    ("Totoro's Rainy Forest", "Studio Ghibli style lush green forest, giant camphor tree, misty atmosphere"),
+    ("Lavender Hills at Dusk", "Studio Ghibli style endless lavender fields on rolling hills, soft warm glow"),
+    ("Crystal Lake Morning", "Studio Ghibli style crystal clear mountain lake reflecting snowy peaks, pine forest shore"),
+    ("Floating Islands Dream", "Studio Ghibli style floating islands in the sky with waterfalls cascading into clouds"),
+    ("Starlit Garden Path", "Studio Ghibli style garden path lit by floating lanterns and starlight, glowing flowers"),
+    ("Cozy Village Evening", "Studio Ghibli style cozy village at evening, warm lights in windows, smoke from chimneys"),
+    ("Hidden Waterfall Glen", "Studio Ghibli style hidden waterfall in a glen, rainbow in the mist, ancient trees"),
 ]
 
-def generate_via_pollinations(prompt: str, output_path: str) -> bool:
+def generate_via_pollinations(style_prompt: str, output_path: str) -> bool:
     try:
-        print(f"[image] Pollinations API call...", flush=True)
-        full_prompt = f"4K screensaver wallpaper. {prompt} 16:9 landscape, highly detailed, smooth gradients, no text, no watermark, no logo, professional ambient screensaver, peaceful and relaxing composition."
-        url = f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}?model=gptimage-large&width=1920&height=1080&key={POLLINATIONS_KEY}"
+        seed = random.randint(10000, 99999)
+        time = random.choice(TIMES_OF_DAY)
+        season = random.choice(SEASONS)
+        weather = random.choice(WEATHERS)
+        color = random.choice(COLORS)
+        mood = random.choice(MOODS)
+        uid = datetime.now().strftime("%H%M%S")
+
+        full_prompt = (
+            f"Masterpiece screensaver wallpaper. {style_prompt}, "
+            f"{time}, {season}, {weather}, {color} tones, {mood} atmosphere, "
+            f"16:9 landscape, highly detailed, smooth gradients, vibrant colors, "
+            f"no text, no watermark, no logo, professional quality. "
+            f"Style: Studio Ghibli anime painting, cinematic lighting. [{uid}]"
+        )
+
+        url = (
+            f"https://gen.pollinations.ai/image/{requests.utils.quote(full_prompt)}"
+            f"?model=gptimage-large&width=1920&height=1080"
+            f"&seed={seed}&key={POLLINATIONS_KEY}"
+        )
+
+        print(f"[image] Seed: {seed} | {time} | {season} | {weather}", flush=True)
         resp = requests.get(url, timeout=180)
         print(f"[image] Response: {resp.status_code}, {len(resp.content)} bytes", flush=True)
+
         if resp.status_code == 200 and len(resp.content) > 1000:
-            from PIL import Image
+            from PIL import Image, ImageFilter, ImageEnhance
             img = Image.open(io.BytesIO(resp.content)).convert("RGB")
             img_ratio = img.width / img.height
             target_ratio = IMAGE_WIDTH / IMAGE_HEIGHT
@@ -44,7 +76,6 @@ def generate_via_pollinations(prompt: str, output_path: str) -> bool:
             left = (new_w - IMAGE_WIDTH) // 2
             top = (new_h - IMAGE_HEIGHT) // 2
             img = img.crop((left, top, left + IMAGE_WIDTH, top + IMAGE_HEIGHT))
-            from PIL import ImageFilter, ImageEnhance
             img = img.filter(ImageFilter.MedianFilter(size=3))
             img = img.filter(ImageFilter.UnsharpMask(radius=1.5, percent=80, threshold=2))
             img = ImageEnhance.Contrast(img).enhance(1.1)
@@ -81,7 +112,6 @@ def generate_fallback_gradient(output_path: str):
 def generate_screensaver_image(output_path: str):
     name, style = random.choice(SCREENSAVERS)
     print(f"[image] Generating: {name}", flush=True)
-    print(f"[image] Style: {style[:80]}...", flush=True)
 
     if generate_via_pollinations(style, output_path):
         return output_path, name
