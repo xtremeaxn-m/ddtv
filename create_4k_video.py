@@ -46,7 +46,7 @@ def create_segment(image_path: str, segment_path: str) -> bool:
             "-t", str(SEGMENT_DURATION),
             "-r", str(FPS),
             "-pix_fmt", "yuv420p",
-            "-vf", f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}:force_original_aspect_ratio=decrease,pad={VIDEO_WIDTH}:{VIDEO_HEIGHT}:(ow-iw)/2:(oh-ih)/2",
+            "-vf", f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}:flags=lanczos",
             *params,
             "-profile:v", "high",
             "-level", "5.1",

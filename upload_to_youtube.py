@@ -90,12 +90,58 @@ def generate_thumbnail(image_path: str, output_path: str, screensaver_name: str)
 
 def generate_title_description(screensaver_name: str):
     slug = screensaver_name.lower().replace(" ", "-")
+    n = screensaver_name
     titles = [
-        f"1 Hour {screensaver_name} Screensaver - 4K Relaxing Nature Ambience for TV",
-        f"{screensaver_name} | 1 Hour 4K Screensaver - Relaxing Nature Video No Music",
-        f"{screensaver_name} - 1 Hour 4K Screensaver | Relaxing TV Background",
-        f"1 Hour of {screensaver_name} - 4K Screensaver for Relaxation & Ambience",
-        f"{screensaver_name} 4K Screensaver TV - 1 Hour Relaxing Visuals No Audio",
+        f"1 Hour {n} Screensaver - 4K Relaxing Nature Ambience for TV",
+        f"{n} | 1 Hour 4K Screensaver - Relaxing Nature Video No Music",
+        f"{n} - 1 Hour 4K Screensaver | Relaxing TV Background",
+        f"1 Hour of {n} - 4K Screensaver for Relaxation & Ambience",
+        f"{n} 4K Screensaver TV - 1 Hour Relaxing Visuals No Audio",
+        f"4K Screensaver: {n} - 1 Hour Relaxing Nature Background Video",
+        f"Relaxing 4K Screensaver - {n} | 1 Hour Calm Nature Ambience",
+        f"1 Hour {n} - 4K Ultra HD Screensaver for TV",
+        f"{n} Nature Screensaver - 4K 1 Hour Relaxing Video",
+        f"4K Ultra HD {n} Screensaver - 1 Hour Relaxing Ambience",
+        f"Beautiful {n} - 1 Hour 4K Screensaver for Relaxation",
+        f"1 Hour 4K Screensaver | {n} - Relaxing Nature TV Background",
+        f"{n} | 4K Screensaver - 1 Hour of Pure Relaxation",
+        f"4K Screensaver TV - {n} - 1 Hour Relaxing Visuals",
+        f"{n} Screensaver - 1 Hour 4K Relaxing Nature Ambience",
+        f"1 Hour Relaxing Screensaver - {n} in 4K Ultra HD",
+        f"Sleep Screensaver - {n} | 1 Hour 4K Calm Nature",
+        f"Meditation Screensaver: {n} - 1 Hour 4K Peaceful Ambience",
+        f"4K {n} Screensaver - 1 Hour Nature TV Background",
+        f"Peaceful {n} - 1 Hour 4K Screensaver for Sleep & Relaxation",
+        f"1 Hour 4K Ultra HD Screensaver - {n} Nature Scenery",
+        f"{n} | Relaxing 4K Screensaver - 1 Hour No Music",
+        f"Calm Screensaver: {n} - 1 Hour 4K TV Background",
+        f"4K Nature Screensaver - {n} - 1 Hour Relaxing Video",
+        f"{n} - Relaxing 4K Screensaver TV | 1 Hour No Audio",
+        f"1 Hour of Relaxation - {n} 4K Screensaver",
+        f"4K TV Screensaver - {n} | 1 Hour Calm Nature",
+        f"Beautiful Nature Screensaver - {n} - 4K 1 Hour",
+        f"Relaxing Nature Ambience - {n} | 4K Screensaver 1 Hour",
+        f"{n} - 4K Screensaver TV | 1 Hour Peaceful Relaxation",
+        f"1 Hour Screensaver: {n} - 4K Ultra HD Nature Video",
+        f"{n} Calm Nature - 1 Hour 4K Screensaver Background",
+        f"4K {n} Nature Video - 1 Hour Relaxing Screensaver",
+        f"Ultra HD Screensaver - {n} | 1 Hour Relaxation",
+        f"Peaceful Nature Screensaver - {n} - 4K 1 Hour",
+        f"1 Hour 4K Nature Screensaver - {n} Calm Ambience",
+        f"{n} Background - 1 Hour 4K Screensaver for TV",
+        f"Relaxing TV Screensaver - {n} | 4K 1 Hour No Audio",
+        f"4K Relaxation Video - {n} - 1 Hour Screensaver",
+        f"{n} - 1 Hour 4K Calm Screensaver for Work & Study",
+        f"1 Hour 4K Screensaver TV - {n} Peaceful Nature",
+        f"Nature Ambience Screensaver - {n} - 4K 1 Hour",
+        f"4K Screensaver for Sleep - {n} - 1 Hour Calm",
+        f"{n} | 4K Ultra HD Screensaver - 1 Hour Relaxing",
+        f"1 Hour Calm Screensaver - {n} 4K Nature Background",
+        f"Relax Your Mind - {n} 4K Screensaver 1 Hour",
+        f"{n} 4K Screensaver - 1 Hour No Music Relaxation",
+        f"Peaceful Ambience Screensaver - {n} - 4K 1 Hour",
+        f"1 Hour 4K Visuals - {n} Relaxing Screensaver TV",
+        f"{n} Nature Escape - 1 Hour 4K Screensaver",
     ]
 
     today = datetime.now().strftime("%B %d, %Y")
@@ -118,7 +164,8 @@ def generate_title_description(screensaver_name: str):
     description += f"#4K #Screensaver #4KScreensaver #Ambience #Relaxation #Calm #Peaceful #Nature #UltraHD\n\n"
     description += f"© {datetime.now().year} {CHANNEL_NAME}"
 
-    return titles, titles[0], description
+    import random
+    return titles, random.choice(titles), description
 
 
 def update_channel_info(youtube):
