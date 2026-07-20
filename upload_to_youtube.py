@@ -13,7 +13,7 @@ load_dotenv()
 YT_CLIENT_ID = os.getenv("YT_CLIENT_ID") or os.getenv("YOUTUBE_CLIENT_ID", "")
 YT_CLIENT_SECRET = os.getenv("YT_CLIENT_SECRET") or os.getenv("YOUTUBE_CLIENT_SECRET", "")
 YT_REFRESH_TOKEN = os.getenv("YT_REFRESH_TOKEN") or os.getenv("YOUTUBE_REFRESH_TOKEN", "")
-CHANNEL_NAME = "DreamDrift TV"
+CHANNEL_NAME = "DreamDrifter TV"
 
 
 def get_authenticated_service():
@@ -123,7 +123,7 @@ def generate_title_description(screensaver_name: str):
 
 def update_channel_info(youtube):
     channel_desc = (
-        "Welcome to DreamDrift TV - your daily escape into peaceful, dreamy visuals.\n\n"
+        "Welcome to DreamDrifter TV - your daily escape into peaceful, dreamy visuals.\n\n"
         "Every day we upload 1 hour of stunning HD ambient visuals to help you relax, "
         "meditate, study, work, or sleep. No music, no talking - just pure calming scenery.\n\n"
         "Perfect for:\n"
@@ -145,7 +145,7 @@ def update_channel_info(youtube):
                     "brandingSettings": {
                         "channel": {
                             "description": channel_desc,
-                            "keywords": "dreamdrift TV relaxing visuals ambient nature scenery TV background meditation sleep study work calm peaceful",
+                            "keywords": "dreamdrifter TV relaxing visuals ambient nature scenery TV background meditation sleep study work calm peaceful",
                         }
                     }
                 }
