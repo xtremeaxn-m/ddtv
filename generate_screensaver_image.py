@@ -5,7 +5,7 @@ from datetime import datetime
 
 load_dotenv()
 
-POLLINATIONS_KEY = os.getenv("POLLINATIONS_API_KEY", "sk_K98O2j1UlpALX9TBAoAuEdqxL1hpB7zh")
+POLLINATIONS_KEY = os.getenv("POLLINATIONS_API_KEY", "")
 IMAGE_WIDTH = 1920
 IMAGE_HEIGHT = 1080
 
